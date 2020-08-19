@@ -1,0 +1,41 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   METAHEURISTICAS                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Algoritmo Genetico para realizar los experimentos y modificaciones.
+
+Conjunto de archivos 'C':
+
+def.h   --> Definiciones de tipos y constantes 
+var.h   --> Declaraciones de variables
+main.c  --> El programa principal y otras rutinas
+ga.c    --> Operadores geneticos
+rec_argu.c --> Obtencion de los parametros de entrada del algoritmo
+eval-fun.c --> Decodificacion del cromosoma y evaluacion de la funcion 
+               objetivo    
+plot.c  --> Rutinas de graficacion
+
+
+
+
+Archivo de dependencias y comandos de construccion del ejecutable
+
+ga.make --> usando 'make -f ga.make' genera el ejecutable 'ga-c'
+
+
+Archivo 'C' (Obtencion de estadisticas)
+
+estad.c --> Lee los datos desde el archivo 'sal'. El ejecutable es invocado
+            desde 'bat-res' (explicado abajo)
+
+Compilar usando 'gcc -o estad estad.c -lm'
+
+
+Shell scripts: archivos MODELO de procesamiento batch para los experimentos y
+para la obtencion de resultados. Segun los experimentos a realizar, deberan
+ser adecuados acordemente. Tal como estan escritos, obtienen resultados para 
+la funcion numero 2
+
+
+bat-runs  -->  Para correr el AG
+bat-res   -->  Para obtener los resultados

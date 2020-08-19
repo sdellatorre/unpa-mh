@@ -1,0 +1,49 @@
+######################################################################
+#                       METAHEURISTICAS                              #
+######################################################################
+#
+# Este shell script es similar a 'bat-runs', excepto que este permite
+# obtener los resultados. Para ello se usa el programa 'estad'. 
+#
+# Un resumen de  todos los resultados es almacenado en 'report'
+# El programa 'estad' toma los datos del archivo 'sal'
+
+
+# Antes de empezar elimina report (antes pregunta)
+
+if find report > /dev/null; then 
+clear
+echo Existe un archivo de reporte. 
+echo Si desea guardarlo, abandone este proceso con Ctrl-C
+rm -i report
+else
+clear
+fi
+   
+
+
+# Los siguientes loops son para identificar los nombre de archivo
+# por 'bat-runs'
+
+for pc in  .3 .65
+do
+for pm in .001 .1
+do
+for elit in 0 1
+do
+for sel in 1 2
+do
+for reemp in 1 2
+do
+#
+echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ >> report
+echo f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp >> report
+cat f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp | grep \# > sal
+./estad >> report
+#
+done
+done
+done
+done
+done
+
