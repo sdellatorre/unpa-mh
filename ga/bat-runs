@@ -9,11 +9,11 @@
 
 
 # probabilidad de crossover
-for pc in  .3 .65
+for pc in  .0 .01 .1
 do
 
 # probabilidad de mutacion
-for pm in .001 .1
+for pm in .0 .01 .1
 do
 
 # elistismo si o no 
