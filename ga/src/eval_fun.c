@@ -43,37 +43,8 @@ void  decode( CROMOSOMA str, FENOTIPO resul)
       for ( j = no_gens/2; j < no_gens; j++) if ( !str[j] ) resul[1]++;
       break;
 
-    case 2:
-      resul[0] = resul[1] = resul[2] = 0;
-      
-      powerof2 = 1; entero = 0;
-      for ( j=0; j < no_gens/3; j++ )
-	{
-	  if ( str[j] ) entero += powerof2;
-	  powerof2 *= 2;
-	}
-      resul[0] = entero; // obtuve x
-
-      powerof2 = 1; entero = 0;
-      for ( j = no_gens/3; j < 2*no_gens/3; j++) 
-	{	
-	  if ( str[j] ) entero += powerof2;
-	  powerof2 *= 2;
-	}
-      resul[1] = entero; // obtuve y
-
-      powerof2 = 1; entero = 0;
-      for ( j = 2*no_gens/3; j < no_gens; j++) 
-	{	
-	  if ( str[j] ) entero += powerof2;
-	  powerof2 *= 2;
-	}
-      resul[2] = entero; // obtuve z
-      break;
-
-
       /*
-	case 2: 
+	case 2:
 	powerof2 = 1; entero = 0;
 	for ( j=0; j < no_gens; j++ )
 	{
@@ -104,9 +75,9 @@ double objetivo( FENOTIPO x )
 	switch( nro_func )
 	{
 		case 1:  return f_1(x); 
-		  
+		  /*
 		case 2:  return f_2(x);
-		  
+		  */
 		default: printf("Funcion no conocida\n");
 			    exit(1);	
 	}
@@ -120,18 +91,16 @@ double objetivo( FENOTIPO x )
 
 double f_1( FENOTIPO x )
 {
-  return pow(x[0],2.0)+pow(x[1],2.0); // sin(x[0]) * cos(x[1]);
+  return sin(x[0]) * cos(x[1]);
 }
 
-
-double f_2( FENOTIPO x)
+/*
+double f_1( FENOTIPO x)
 {
 
-  return (x[0])+x[1]*pow(x[2],2.0);
-
+   return fabs(pow(sin(x[0]),2.0)  * cos(x[0]) * pow(x[0],2.0)  ) ;
 }
-
-
+*/
 /**** f_3:   ****/
 
 /**** f_4:   ****/
