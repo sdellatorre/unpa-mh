@@ -1,2 +1,5 @@
 rm f*
+rm sal
+rm report
+rm out
 

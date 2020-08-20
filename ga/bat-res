@@ -25,9 +25,9 @@ fi
 # Los siguientes loops son para identificar los nombre de archivo
 # por 'bat-runs'
 
-for pc in  .3 .65
+for pc in  .01 .03 .06
 do
-for pm in .001 .1
+for pm in .0 .01 .1
 do
 for elit in 0 1
 do

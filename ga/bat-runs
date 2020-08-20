@@ -9,7 +9,7 @@
 
 
 # probabilidad de crossover
-for pc in  .0 .01 .1
+for pc in  .01 .03 .06
 do
 
 # probabilidad de mutacion
@@ -29,29 +29,29 @@ for reemp in 1 2
 do
 
 # 20 semillas
-for sem in 43 #53 463 5143 163 74263 376254 354123 4223 1534 112 122 178 34 786 900 888 7876 666 10
+for sem in 43 53 463 5143 163 74263 376254 354123 4223 1534 112 122 178 34 786 900 888 7876 666 10 789
 do
 
 # Invocacion al AG (ver que hay parametros que son fijos).
 #
 ./ga-c -f1 -n100 -m$pm -c$pc -v0 -p50 -g1000 -e$elit -P0 -G$reemp -S$sel -t1 -s$sem -w0
 #
+
+	cp res f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp.sem$sem
+	echo f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp.sem$sem
+	grep \# res > sal
+	rm res
+	./estad >> report
 done
 
 # Dado que 'ga-c' genera un archivo 'res' con los resultados mas
 # relevantes de las 20 corridas, luego de cada ejecucion, 'res' es
 # movido a un archivo cuyo nombre representa los valores de los parametros
 
-cp res f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp
+
 
 # es un cartel para ver como va avanzando la corrida del 'shell script'
-echo f1.pc$pc.pm$pm.e$elit.sel$sel.r$reemp
 
-grep \# res > sal
-
-rm res
-
-./estad >> report
 
 done
 done
