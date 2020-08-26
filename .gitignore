@@ -1,6 +1,10 @@
 original*
 
 ga/f*
+ga/out
+ga/report
+ga/sal
+
 
 # Prerequisites
 *.d
