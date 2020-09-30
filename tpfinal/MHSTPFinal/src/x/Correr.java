@@ -27,7 +27,7 @@ public class Correr {
 	public Correr() {
 		
 		
-		int generaciones = 100;
+		int generaciones = 30;
 		int bestVal = Integer.MAX_VALUE;
 		int bestGen = -1;
 		Resultado best =  null;
@@ -56,6 +56,7 @@ public class Correr {
 		for (int gen = 1; gen <= generaciones; gen ++) {
 			Solucion [] poblacionPN = new Solucion[np];
 			Resultado [] resultadosPN = new Resultado[np];
+			System.out.printf("Gen: %d: ", gen);
 			
 			for (int i = 0; i < np ; i++) {			
 				// Selección
@@ -113,7 +114,7 @@ public class Correr {
 				}
 			}
 			
-			System.out.printf("Gen: %d: %4d\n", gen, bestValGen);
+			System.out.printf("%4d\n", bestValGen);
 			
 			
 		}
