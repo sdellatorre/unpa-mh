@@ -13,6 +13,10 @@ public class Solucion {
 		this.tareas.addAll(individuos);
 	}
 	
+	public Solucion clone() {
+		return new Solucion(new ArrayList<>(this.tareas));
+	}
+	
 	public int getCantidadIndividuos() {
 		return this.tareas.size();
 	}
@@ -28,6 +32,15 @@ public class Solucion {
 	public void shuffle () {
 		Collections.shuffle(this.tareas);
 	}
+	
+	public int getPosicion (Individuo tarea) {
+		return this.tareas.indexOf(tarea);
+	}
+	
+	public Individuo getTarea (int indice) {
+		return this.tareas.get(indice);
+	}
+	
 	
 	public Resultado evaluar () {
 		Resultado resultado = new Resultado(); 
@@ -105,6 +118,7 @@ public class Solucion {
 		public int tiempoTotal() {
 			return this.fin[Solucion.this.tareas.size()-1];
 		}
+		
 		
 		public void run() {
 			int x = 0;
