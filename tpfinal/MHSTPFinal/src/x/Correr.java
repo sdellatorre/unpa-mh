@@ -1,4 +1,5 @@
 package x;
+import java.beans.VetoableChangeSupport;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import gui.PonerMarco;
 import x.Solucion.Resultado;
 
 public class Correr {
@@ -16,9 +18,8 @@ public class Correr {
 	private Solucion [] poblacion;
 	private Resultado [] resultados;
 	private int sumaPoblacion;         //Para ruleta
-	private int np = 15;
-	private double pm = 0.5;
-	
+	private int np = 1000;
+	private double pm = 0.9;
 	
 	public static void main(String[] args) {
 		new Correr();
@@ -27,7 +28,7 @@ public class Correr {
 	public Correr() {
 		
 		
-		int generaciones = 30;
+		int generaciones = 1000;
 		int bestVal = Integer.MAX_VALUE;
 		int bestGen = -1;
 		Resultado best =  null;
@@ -51,6 +52,9 @@ public class Correr {
 				best = resultados[i];
 			}			
 		}
+		
+		
+		PonerMarco.dibujar(best, "G"+bestGen);
 		
 		
 		for (int gen = 1; gen <= generaciones; gen ++) {
@@ -99,7 +103,8 @@ public class Correr {
 			poblacion = poblacionPN;
 			resultados = resultadosPN;
 			sumaPoblacion = 0;
-			int bestValGen = Integer.MAX_VALUE; 
+			int bestValGen = Integer.MAX_VALUE;
+			int bestValGenIndex = 0;
 			
 			for (int i = 0 ; i < np ; i++) {
 				// Se evaluan los resultados y se establece el mejor   
@@ -111,14 +116,18 @@ public class Correr {
 				}
 				if(resultados[i].getTiempoTotal() <bestValGen) {
 					bestValGen = resultados[i].getTiempoTotal();
+					bestValGenIndex = i;
 				}
 			}
+			
+			if (gen%100==0)
+				PonerMarco.dibujar(resultados[bestValGenIndex], "G"+gen);
 			
 			System.out.printf("%4d\n", bestValGen);
 			
 			
 		}
-		
+		PonerMarco.dibujar(best, "BEST");
 		System.out.printf("Mejor solucion %d en la generacion %d\n", bestVal, bestGen);
 		best.imprimir();
 		
@@ -146,7 +155,7 @@ public class Correr {
 		
 		String linea ;
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("data.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("dataoriginal.txt"));
 			while ((linea = br.readLine())!= null) {
 				
 				if ( linea.trim().equals("") ) 
@@ -186,7 +195,5 @@ public class Correr {
 			}
 		}
 		return tareas;
-		
 	}
-
 }
