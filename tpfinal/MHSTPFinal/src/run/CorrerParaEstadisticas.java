@@ -15,7 +15,7 @@ public class CorrerParaEstadisticas {
 		
 		int corridas = 1000;
 		int generaciones = 1000;
-		int tamanioPoblacion = 200;
+		int tamanioPoblacion = 100;
 		double probablidadMutacion = 0.9;
 
 		Corrida best = null;
