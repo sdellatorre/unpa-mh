@@ -7,9 +7,15 @@ import java.util.List;
 
 public class Solucion {
 	
-	private List<Individuo> tareas = new ArrayList<>();
+	private List<Individuo> tareas;
+	private Resultado resultado;
+	
+	public Resultado getResultado() {
+		return resultado;
+	}
 	
 	public Solucion (List<Individuo> individuos) {
+		this.tareas = new ArrayList<>(individuos.size());
 		this.tareas.addAll(individuos);
 	}
 	
@@ -41,7 +47,7 @@ public class Solucion {
 		return this.tareas.get(indice);
 	}
 	
-	public Resultado evaluar () {
+	public void evaluar () {
 		Resultado resultado = new Resultado();
 		
 		for(int tarea = 0; tarea < getCantidadIndividuos(); tarea ++) {
@@ -58,9 +64,15 @@ public class Solucion {
 		}
 		resultado.tiempoTotal = resultado.fin[getCantidadMaquinas()-1][getCantidadIndividuos()-1];
 		
-		return resultado;
+		this.resultado = resultado;
 	}	
 		
+	
+	public int getTiempoTotal() {
+		return this.resultado.getTiempoTotal();
+	}
+	
+	
 	public class Resultado {
 		
 		private List<Individuo> tareas = new LinkedList<Individuo>(Solucion.this.tareas);
@@ -68,23 +80,25 @@ public class Solucion {
 		private int[] [] inicio = new int[Solucion.this.getCantidadMaquinas()][Solucion.this.getCantidadIndividuos()];
 		private int[] [] fin = new int[Solucion.this.getCantidadMaquinas()][Solucion.this.getCantidadIndividuos()];
 		
-		public int getTiempoTotal() {
+		private int getTiempoTotal() {
 			return tiempoTotal;
 		}
 
-		public void imprimir () {
-			System.out.print(" \n           ");
+		public String toString () {
+			String s ="           ";
 			for (Individuo t: this.tareas)
-				System.out.printf( "%9.9s   ", t.getId() );
-			System.out.println();
+				s += String.format( "%9.9s   ", t.getId() );
+			s += "\n";
 			
 			for (int maquina = 0; maquina < getCantidadMaquinas(); maquina++ ) {
-				System.out.print("Maquina " + maquina  + " ");
+				s += String.format("Maquina " + maquina  + " ");
 				for(int tarea = 0; tarea < getCantidadIndividuos(); tarea ++) {
-					System.out.printf(" %4d %4d :", this.inicio [maquina][tarea] , this.fin [maquina][tarea]);
+					s += String.format(" %4d %4d :", this.inicio [maquina][tarea] , this.fin [maquina][tarea]);
 				}
-				System.out.println();
+				s += "\n";
 			}
+			
+			return s;
 		}
 		
 		
