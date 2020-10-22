@@ -182,7 +182,7 @@ public class Corrida {
 	}
 	
 	// Ruleta
-	public int seleccion() {
+	public int seleccionRuleta() {
 		int v = rnd.nextInt(sumaPoblacion);
 		int acum = 0;
 		for (int i = 0; i < this.np ; i++) {
@@ -191,8 +191,24 @@ public class Corrida {
 				return i;
 		}
 		return 0;
-		
 	}
+	
+	// Torneo
+	public int seleccion() {
+		int menorValor = Integer.MAX_VALUE;
+		int retval = 0;
+		for (int i = 0; i < 3; i++) {
+			int v = rnd.nextInt(this.np);
+			int aux = this.poblacion[v].getTiempoTotal();
+			if (aux < menorValor) {
+				menorValor = aux;
+				retval = v;
+			}
+		}
+		return retval;
+	}
+	
+	
 	
 	private static List<Individuo> tareas;
 	
