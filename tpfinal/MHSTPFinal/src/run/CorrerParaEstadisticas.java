@@ -8,48 +8,63 @@ import java.util.Date;
 
 import gui.Salida;
 import x.Corrida;
+import x.Corrida.MetodoSeleccion;
 
 public class CorrerParaEstadisticas {
+	
+	
 
 	public static void main(String[] args) throws IOException {
 		
 		int corridas = 1000;
 		int generaciones = 1000;
-		int tamanioPoblacion = 100;
-		double probablidadMutacion = 0.9;
+		
+		int[] tamaniosPoblacion = {50, 100, 500, 1000}; 
+		double[] probabilidadesMutacion = {0.1, 0.3, 0.6, 0.9};
+		
+		
+		
 
-		Corrida best = null;
 		
 		
-		SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMddHHmmss");
+		for (MetodoSeleccion metodoSeleccion: MetodoSeleccion.values()) {
+			for (int tamanioPoblacion : tamaniosPoblacion) {
+				for (double probablidadMutacion : probabilidadesMutacion) {
+				
 		
-		
-		String nombre = "C" + corridas+"_G" + generaciones + "_np"+tamanioPoblacion +"_pm" + probablidadMutacion + "_" + sdf.format(new Date()) ;  
-		BufferedWriter bw = new BufferedWriter(new FileWriter(nombre + ".txt"));
-		
-		for (int i = 0; i < corridas ; i++  ) {
-			Corrida c = new Corrida(1000, 100, 0.9);
-			c.buscar();
+			Corrida best = null;
+			SimpleDateFormat sdf =new SimpleDateFormat("yyyyMMddHHmmss");
 			
 			
+			String nombre = "C" + corridas+"_G" + generaciones + "_np"+tamanioPoblacion +"_pm" + probablidadMutacion + "_" + metodoSeleccion + "_" + sdf.format(new Date()) ;  
+			BufferedWriter bw = new BufferedWriter(new FileWriter(nombre + ".txt"));
 			
-			
-			System.out.print( String.format( "Mejor solucion %d en la generacion %d\n", c.getBest().getTiempoTotal(), c.getBestGen()));
-			
-			bw.write( String.format( "Mejor solucion %d en la generacion %d\n", c.getBest().getTiempoTotal(), c.getBestGen()));
-			bw.write( c.getBest().getResultado().toString());
-			
-			
-			if (best == null || c.getBest().getTiempoTotal() < best.getBest().getTiempoTotal()) {
-				best = c;
+			for (int i = 0; i < corridas ; i++  ) {
+				Corrida c = new Corrida(generaciones, tamanioPoblacion, probablidadMutacion, metodoSeleccion);
+				c.buscar();
+				
+				
+				
+				
+				System.out.print( String.format( "Mejor solucion %d en la generacion %d\n", c.getBest().getTiempoTotal(), c.getBestGen()));
+				
+				bw.write( String.format( "Mejor solucion %d en la generacion %d\n", c.getBest().getTiempoTotal(), c.getBestGen()));
+				bw.write( c.getBest().getResultado().toString());
+				
+				
+				if (best == null || c.getBest().getTiempoTotal() < best.getBest().getTiempoTotal()) {
+					best = c;
+					
+				}
 				
 			}
 			
+			Salida.dibujar(best.getBest(), nombre + "_gen" + best.getBestGen(), true);
+			
+			bw.close();
 		}
-		
-		Salida.dibujar(best.getBest(), nombre + "_gen" + best.getBestGen(), true);
-		
-		bw.close();
+		}
+		}
 	}
 
 }

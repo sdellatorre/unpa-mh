@@ -12,11 +12,22 @@ import gui.Salida;
 
 public class Corrida {
 	
+	
+	public enum MetodoSeleccion {
+		SEL_RULETA,
+		SEL_TORNEO
+	}
+	
 	private Random rnd = new Random();
+	
+	
+	
 	
 	private int generaciones;
 	private int np;
 	private double pm;
+	private MetodoSeleccion metodoSeleccion;
+	
 
 	private Solucion [] poblacion;
 	private Solucion best =  null;
@@ -27,10 +38,9 @@ public class Corrida {
 	private int sumaPoblacion;         //Para ruleta
 	
 	public static void main(String[] args) {
-		Corrida c = new Corrida(1000, 100, 0.9);
+		Corrida c = new Corrida(1000, 100, 0.9, MetodoSeleccion.SEL_RULETA);
 		c.buscar();
-		Salida.dibujar(c.getBest(), "BEST", true);
-		
+		//Salida.dibujar(c.getBest(), "BEST", true);
 		System.out.printf("Mejor solucion %d en la generacion %d\n", c.getBest().getTiempoTotal(), c.getBestGen());
 		System.out.println(c.getBest().getResultado().toString());
 
@@ -60,10 +70,11 @@ public class Corrida {
 		return pm;
 	}
 	
-	public Corrida(int generaciones, int np, double pm) {
+	public Corrida(int generaciones, int np, double pm, MetodoSeleccion metodoSeleccion) {
 		this.generaciones = generaciones;
 		this.np = np;
 		this.pm = pm;		
+		this.metodoSeleccion = metodoSeleccion; 
 	}
 	
 	public void buscar() {
@@ -181,8 +192,16 @@ public class Corrida {
 		
 	}
 	
+	private int seleccion() {
+		if (this.metodoSeleccion.equals(MetodoSeleccion.SEL_RULETA)) {
+			return seleccionRuleta();
+		} else {
+			return seleccionTorneo();
+		}
+	}
+	
 	// Ruleta
-	public int seleccionRuleta() {
+	private int seleccionRuleta() {
 		int v = rnd.nextInt(sumaPoblacion);
 		int acum = 0;
 		for (int i = 0; i < this.np ; i++) {
@@ -194,7 +213,7 @@ public class Corrida {
 	}
 	
 	// Torneo
-	public int seleccion() {
+	private int seleccionTorneo() {
 		int menorValor = Integer.MAX_VALUE;
 		int retval = 0;
 		for (int i = 0; i < 3; i++) {

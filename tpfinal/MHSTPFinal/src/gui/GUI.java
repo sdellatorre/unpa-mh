@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import x.Corrida;
+import x.Corrida.MetodoSeleccion;
 import x.CorridaListener;
 
 @SuppressWarnings("serial")
@@ -102,7 +103,7 @@ public class GUI extends JFrame implements CorridaListener {
 								fldProbMutacion.setText("" + mutacion);
 								
 								
-								GUI.this.corrida = new Corrida(generaciones, poblacion, mutacion);
+								GUI.this.corrida = new Corrida(generaciones, poblacion, mutacion, MetodoSeleccion.SEL_RULETA);
 								GUI.this.corrida.addListener(GUI.this);
 								btnLanzar.setEnabled(false);
 								btnVerGantt.setEnabled(false);
