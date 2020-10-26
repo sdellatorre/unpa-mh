@@ -19,7 +19,7 @@ public class CorrerParaEstadisticas {
 		int corridas = 1000;
 		int generaciones = 1000;
 		
-		int[] tamaniosPoblacion = {50, 100, 500, 1000}; 
+		int[] tamaniosPoblacion = {500, 1000}; 
 		double[] probabilidadesMutacion = {0.1, 0.3, 0.6, 0.9};
 		
 		
@@ -28,6 +28,8 @@ public class CorrerParaEstadisticas {
 		
 		
 		for (MetodoSeleccion metodoSeleccion: MetodoSeleccion.values()) {
+			if(metodoSeleccion == MetodoSeleccion.SEL_RULETA)
+				continue;
 			for (int tamanioPoblacion : tamaniosPoblacion) {
 				for (double probablidadMutacion : probabilidadesMutacion) {
 				

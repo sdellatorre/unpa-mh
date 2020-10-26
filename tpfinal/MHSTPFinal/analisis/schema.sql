@@ -3,6 +3,7 @@ CREATE TABLE ejecuciones (
 	gen text,
 	pn text,
 	pm text,
+	tipo text,
 	arch text,
 	best int,
 	gbest int
